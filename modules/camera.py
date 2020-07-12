@@ -44,7 +44,7 @@ class VideoCamera(object):
             cv2.rectangle(fr, (x, y), (x + w, y + h), model.calculate_suspicious(), 2)
 
         for (x, y, w, h) in eyes:
-            cv2.rectangle(fr, (x, y), (x + w, y + h), model.calculate_suspicious(), 1)  # BGR format
+            cv2.rectangle(fr, (x, y), (x + w, y + h), model.calculate_suspicious(), 1)
 
         _, jpeg = cv2.imencode('.jpg', fr)
         return jpeg.tobytes()
