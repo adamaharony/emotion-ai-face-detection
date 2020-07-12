@@ -6,7 +6,7 @@ class FacialExpressionModel(object):
     EMOTIONS_LIST = ["Angry", "Disgust",
                      "Fear", "Happy",
                      "Neutral", "Sad",
-                     "Surprise"]
+                     "Surprised"]
 
     def __init__(self, model_json_file, model_weights_file):
         # loading model from JSON file
