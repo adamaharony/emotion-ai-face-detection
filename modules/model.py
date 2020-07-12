@@ -25,6 +25,10 @@ class FacialExpressionModel(object):
 
     def predict_emotion(self, img):
         self.preds = self.loaded_model.predict(img)
+        # after 10 seconds = 300 frames = 300 runs we clear the total evaluation:
+        if self.runs % 300 == 0:
+            self.runs = 0
+            self.tot_exp = 0
         self.tot_exp += self.preds
         self.runs += 1
         self.avg_exp = self.tot_exp / self.runs
