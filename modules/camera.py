@@ -2,8 +2,10 @@ import cv2
 from modules.model import FacialExpressionModel
 import numpy as np
 
+# TODO: ADD OTHER CLASSIFIERS LIKE MOUTH, NOSE, ETC...
 facec = cv2.CascadeClassifier('./static/haar_face.xml')
 eyec = cv2.CascadeClassifier('./static/haar_eye.xml')
+
 model = FacialExpressionModel("./static/model.json", "./static/model_weights.h5")
 font = cv2.FONT_HERSHEY_SIMPLEX  # TODO: REPLACE FONT IN PRODUCTION
 
@@ -25,6 +27,8 @@ class VideoCamera(object):
             minNeighbors=10,
             minSize=(50, 50)  # Minimum size of a face (in pixels)
         )
+
+        # TODO: MAKE THE EYE CLASSIFIER WORK ONLY BETWEEN EACH FACE
         eyes = eyec.detectMultiScale(
             grey_fr,  # Forwarding each greyscale frame to the classifier
             scaleFactor=1.2,
