@@ -5,6 +5,8 @@ import numpy as np
 # TODO: ADD OTHER CLASSIFIERS LIKE MOUTH, NOSE, ETC...
 facec = cv2.CascadeClassifier('./static/haar_face.xml')
 eyec = cv2.CascadeClassifier('./static/haar_eye.xml')
+nosec = cv2.CascadeClassifier('./static/haar_nose.xml')
+mouthc = cv2.CascadeClassifier('./static/haar_mouth.xml')
 
 model = FacialExpressionModel("./static/model.json", "./static/model_weights.h5")
 font = cv2.FONT_HERSHEY_SIMPLEX  # TODO: REPLACE FONT IN PRODUCTION
@@ -35,6 +37,18 @@ class VideoCamera(object):
             minNeighbors=15,
             minSize=(15, 15)  # Minimum size of an eye (in pixels)
         )
+        nose = nosec.detectMultiScale(
+            grey_fr,  # Forwarding each greyscale frame to the classifier
+            scaleFactor=1.2,
+            minNeighbors=15,
+            minSize=(15, 15)  # Minimum size of a nose (in pixels)
+        )
+        mouth = mouthc.detectMultiScale(
+            grey_fr,  # Forwarding each greyscale frame to the classifier
+            scaleFactor=1.2,
+            minNeighbors=15,
+            minSize=(15, 15)  # Minimum size of a mouth (in pixels)
+        )
 
         for (x, y, w, h) in faces:
             # getting the face part to feed into the model
@@ -48,6 +62,10 @@ class VideoCamera(object):
             cv2.rectangle(fr, (x, y), (x + w, y + h), model.calculate_suspicious(), 2)
 
         for (x, y, w, h) in eyes:
+            cv2.rectangle(fr, (x, y), (x + w, y + h), model.calculate_suspicious(), 1)
+        for (x, y, w, h) in nose:
+            cv2.rectangle(fr, (x, y), (x + w, y + h), model.calculate_suspicious(), 1)
+        for (x, y, w, h) in mouth:
             cv2.rectangle(fr, (x, y), (x + w, y + h), model.calculate_suspicious(), 1)
 
         _, jpeg = cv2.imencode('.jpg', fr)
