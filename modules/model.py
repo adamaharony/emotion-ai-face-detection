@@ -3,10 +3,10 @@ import numpy as np
 
 
 class FacialExpressionModel(object):
-    EMOTIONS_LIST = ["Angry", "Disgust",
+    EMOTIONS_LIST = ("Angry", "Disgust",
                      "Fear", "Happy",
                      "Neutral", "Sad",
-                     "Surprised"]
+                     "Surprised")
 
     def __init__(self, model_json_file, model_weights_file):
         # loading model from JSON file

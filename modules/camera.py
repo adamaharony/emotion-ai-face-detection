@@ -2,7 +2,6 @@ import cv2
 from modules.model import FacialExpressionModel
 import numpy as np
 
-# TODO: ADD OTHER CLASSIFIERS LIKE MOUTH, NOSE, ETC...
 facec = cv2.CascadeClassifier('./static/haar_face.xml')
 eyec = cv2.CascadeClassifier('./static/haar_eye.xml')
 nosec = cv2.CascadeClassifier('./static/haar_nose.xml')
